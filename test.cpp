@@ -18,13 +18,13 @@ TEST_CASE( "Rectange width", "[width]"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 2,.y = 2};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth() == 2)
+  REQUIRE(newRectangle.GetWidth() == 2);
 }
 TEST_CASE( "Rectange height", "[height]"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 2,.y = 2};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetHeight() == 2)
+  REQUIRE(newRectangle.GetHeight() == 2);
 }
 
 
