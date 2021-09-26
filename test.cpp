@@ -48,10 +48,11 @@ TEST_CASE( "Expand rectangle with initial points p1=(0,0) and p2=(2,2) to rectan
   newRectangle.Expand();
   REQUIRE(newRectangle.get_p1().x == -1);
   REQUIRE(newRectangle.get_p1().y == -1);
-  REQUIRE(newRectangle.get_p2().x == 2);
-  REQUIRE(newRectangle.get_p2().y == 2);
-  REQUIRE(newRectangle.GetWidth() == 3);
-  REQUIRE(newRectangle.GetHeight() == 3);
+  REQUIRE(newRectangle.get_p2().x == 3);
+  REQUIRE(newRectangle.get_p2().y == 3);
+
+  REQUIRE(newRectangle.GetWidth() == 4);
+  REQUIRE(newRectangle.GetHeight() == 4);
 
 }
 
