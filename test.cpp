@@ -4,13 +4,12 @@
 #include "Rectangle.h"
 
 
-TEST_CASE ( "Factorials are computed", "[factorial]") {
-  REQUIRE( Factorial(2) == 2 );
-  REQUIRE( Factorial(3) == 6 );
+TEST_CASE ( "Rectangle points are constructed", "[rectangle]") {
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 1, .y = 1};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.get_p1() == p1);
+  REQUIRE(newRectangle.get_p2() == p2);
 }
 
-TEST_CASE ( "Factorials are computed", "[factorial]") {
-  REQUIRE( Factorial(2) == 2 );
-  REQUIRE( Factorial(3) == 6 );
-}
 

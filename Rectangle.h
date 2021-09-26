@@ -12,6 +12,9 @@ unsigned int Factorial( unsigned int number );
 struct Point {
   int x;
   int y;
+  bool operator==(const Point &p) const{
+    return x == p.x && y == p.y;
+  }
 };
 
 
