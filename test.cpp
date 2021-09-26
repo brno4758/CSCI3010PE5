@@ -10,7 +10,7 @@ TEST_CASE ( "Rectangle points are constructed", "[rectangle]") {
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.get_p1().x == 0);
   REQUIRE(newRectangle.get_p1().y == 0);
-  REQUIRE(newRectangle.get_p1().x == 1);
+  REQUIRE(newRectangle.get_p2().x == 1);
   REQUIRE(newRectangle.get_p2().y == 1);
 }
 
