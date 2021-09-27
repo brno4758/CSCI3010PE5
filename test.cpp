@@ -32,7 +32,7 @@ TEST_CASE( "Rectangle width of 10", "[width]"){
   Point p1 = {.x = -5, .y = 0};
   Point p2 = {.x = 5,.y = 0};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth() == 2);
+  REQUIRE(newRectangle.GetWidth() == 10);
 }
 
 //Height
@@ -46,7 +46,7 @@ TEST_CASE( "Rectangle height of 4", "[height]"){
   Point p1 = {.x = 0, .y = -2};
   Point p2 = {.x = 2,.y = 2};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetHeight() == 2);
+  REQUIRE(newRectangle.GetHeight() == 4);
 }
 
 //Area
@@ -60,7 +60,7 @@ TEST_CASE( "Rectangle of height 4 and width 3 has an area of 12 (negative x and 
   Point p1 = {.x=-1,.y=-1};
   Point p2 = {.x=2,.y=3};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.CalculateArea() == 6);
+  REQUIRE(newRectangle.CalculateArea() == 12);
 }
 
 //Expand
@@ -81,7 +81,6 @@ TEST_CASE( "Shrink rectangle with initial points p1=(0,0) and p2=(3,3) to rectan
   Point p2 = {.x=3,.y=3};
   Rectangle newRectangle = Rectangle(p1,p2);
   newRectangle.Shrink();
-
   CHECK(newRectangle.get_p1().x == 1);
   CHECK(newRectangle.get_p1().y == 1);
   CHECK(newRectangle.get_p2().x == 2);
