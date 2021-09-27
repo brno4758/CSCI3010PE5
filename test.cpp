@@ -14,6 +14,15 @@ TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[recta
   REQUIRE(newRectangle.get_p2().y == 1);
 }
 
+TEST_CASE ( "Modifying point after initalizing Rectangle shouldnt affect Rectangle", "[rectangle]") {
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 1, .y = 1};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  p1.x = 1;
+  p1.y = 1;
+  REQUIRE(newRectangle.get_p1().x != 1);
+  REQUIRE(newRectangle.get_p1().y != 1);
+}
 //Invalid rectangle
 // TEST_CASE ( "Rectanlge points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
 //   Point p1 = {.x = 1, .y = 1};
@@ -22,7 +31,13 @@ TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[recta
 // }
 
 //Overlaps
-TEST_CASE( "Two rectangles with the same p1 overlap"){
+TEST_CASE( "One rectangle overlaps itself"){
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 3, .y = 3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.Overlaps(newRectangle) == true);
+  }
+TEST_CASE( "Two rectangles with the same p1 but different p2 overlap"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 3, .y = 3};
   Rectangle newRectangle = Rectangle(p1,p2);
