@@ -3,7 +3,7 @@
 
 #include "Rectangle.h"
 
-
+//Constructors
 TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[rectangle]") {
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 1, .y = 1};
@@ -21,26 +21,49 @@ TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[recta
 //   Rectangle newRectangle = Rectangle(p1,p2);
 // }
 
+//Width
 TEST_CASE( "Rectangle width of 2", "[width]"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 2,.y = 2};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.GetWidth() == 2);
 }
+TEST_CASE( "Rectangle width of 10", "[width]"){
+  Point p1 = {.x = -5, .y = 0};
+  Point p2 = {.x = 5,.y = 0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.GetWidth() == 2);
+}
+
+//Height
 TEST_CASE( "Rectangle height of 2", "[height]"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 2,.y = 2};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.GetHeight() == 2);
 }
+TEST_CASE( "Rectangle height of 4", "[height]"){
+  Point p1 = {.x = 0, .y = -2};
+  Point p2 = {.x = 2,.y = 2};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.GetHeight() == 2);
+}
 
+//Area
 TEST_CASE( "Rectangle of height 3 and width 2 has an area of 6", "[area]"){
   Point p1 = {.x=0,.y=0};
   Point p2 = {.x=2,.y=3};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.CalculateArea() == 6);
 }
+TEST_CASE( "Rectangle of height 4 and width 3 has an area of 12 (negative x and y)", "[area]"){
+  Point p1 = {.x=-1,.y=-1};
+  Point p2 = {.x=2,.y=3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.CalculateArea() == 6);
+}
 
+//Expand
 TEST_CASE( "Expand rectangle with initial points p1=(0,0) and p2=(2,2) to rectangle with points p1=(-1,-1) and p2=(3,3)"){
   Point p1 = {.x=0,.y=0};
   Point p2 = {.x=2,.y=2};
@@ -52,6 +75,7 @@ TEST_CASE( "Expand rectangle with initial points p1=(0,0) and p2=(2,2) to rectan
   REQUIRE(newRectangle.get_p2().y == 3);
 }
 
+//Shrink
 TEST_CASE( "Shrink rectangle with initial points p1=(0,0) and p2=(3,3) to rectangle with points p1=(1,1) and p2=(2,2)"){
   Point p1 = {.x=0,.y=0};
   Point p2 = {.x=3,.y=3};
