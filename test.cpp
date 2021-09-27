@@ -82,15 +82,15 @@ TEST_CASE( "Area of a rectanlge with height 0 and width 0 has an area of 0","[ar
 }
 
 //Expand
-TEST_CASE( "Expand rectangle with initial points p1=(0,0) and p2=(2,2) to rectangle with points p1=(-1,-1) and p2=(3,3)"){
-  Point p1 = {.x=0,.y=0};
-  Point p2 = {.x=2,.y=2};
+TEST_CASE( "Expand rectangle with initial points p1=(1,2) and p2=(3,4) to rectangle with points p1=(0,1) and p2=(4,5)"){
+  Point p1 = {.x=1,.y=2};
+  Point p2 = {.x=3,.y=4};
   Rectangle newRectangle = Rectangle(p1,p2);
   newRectangle.Expand();
-  REQUIRE(newRectangle.get_p1().x == -1);
-  REQUIRE(newRectangle.get_p1().y == -1);
-  REQUIRE(newRectangle.get_p2().x == 3);
-  REQUIRE(newRectangle.get_p2().y == 3);
+  REQUIRE(newRectangle.get_p1().x == 0);
+  REQUIRE(newRectangle.get_p1().y == 1);
+  REQUIRE(newRectangle.get_p2().x == 4);
+  REQUIRE(newRectangle.get_p2().y == 5);
 }
 
 //Shrink
