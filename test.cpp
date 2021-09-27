@@ -30,6 +30,7 @@ TEST_CASE( "Two rectangles with the same p1 overlap"){
   p2.y = 4;
   Rectangle newRectangle2 = Rectangle(p1,p2);
   REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+  REQUIRE(newRectangle2.Overlaps(newRectangle) == true);
 }
 TEST_CASE( "Two rectangles with the same p2 overlap"){
   Point p1 = {.x = 0, .y = 0};
@@ -38,7 +39,8 @@ TEST_CASE( "Two rectangles with the same p2 overlap"){
   p1.x = 1;
   p1.y = 1;
   Rectangle newRectangle2 = Rectangle(p1,p2);
-  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+  CHECK(newRectangle.Overlaps(newRectangle2) == true);
+  CHECK(newRectangle2.Overlaps(newRectangle) == true);
 }
 TEST_CASE( "Two rectangles with the same p1 and p2 overlap"){
   Point p1 = {.x = 0, .y = 0};
@@ -46,6 +48,7 @@ TEST_CASE( "Two rectangles with the same p1 and p2 overlap"){
   Rectangle newRectangle = Rectangle(p1,p2);
   Rectangle newRectangle2 = Rectangle(p1,p2);
   REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+  REQUIRE(newRectangle2.Overlaps(newRectangle) == true);
 }
 TEST_CASE( "Two rectangles with neither same p1 nor p2 dont overlap"){
   Point p1 = {.x = 0, .y = 0};
@@ -57,6 +60,7 @@ TEST_CASE( "Two rectangles with neither same p1 nor p2 dont overlap"){
   p2.y = 4;
   Rectangle newRectangle2 = Rectangle(p1,p2);
   REQUIRE(newRectangle.Overlaps(newRectangle2) == false);
+  REQUIRE(newRectangle2.Overlaps(newRectangle) == false);
 }
 //Width
 TEST_CASE( "Rectangle width of 2", "[width]"){
