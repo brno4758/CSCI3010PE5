@@ -29,10 +29,16 @@ TEST_CASE( "Rectangle width of 2", "[width]"){
   REQUIRE(newRectangle.GetWidth() == 2);
 }
 TEST_CASE( "Rectangle width of 10", "[width]"){
-  Point p1 = {.x = -5, .y = 0};
+  Point p1 = {.x = -5,.y = 0};
   Point p2 = {.x = 5,.y = 0};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.GetWidth() == 10);
+}
+TEST_CASE( "Rectangle width of 0", "[width]"){
+  Point p1 = {.x=0,.y=0};
+  Point p2 = {.x=0, .y=0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.GetWidth == 0);
 }
 
 //Height
@@ -48,6 +54,12 @@ TEST_CASE( "Rectangle height of 4", "[height]"){
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.GetHeight() == 4);
 }
+TEST_CASE( "Rectangle height of 0", "[height]"){
+  Point p1 = {.x=0,.y=0};
+  Point p2 = {.x=0, .y=0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.GetHeight() == 0);
+}
 
 //Area
 TEST_CASE( "Rectangle of height 3 and width 2 has an area of 6", "[area]"){
@@ -61,6 +73,12 @@ TEST_CASE( "Rectangle of height 4 and width 3 has an area of 12 (negative x and 
   Point p2 = {.x=2,.y=3};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.CalculateArea() == 12);
+}
+TEST_CASE( "Area of a rectanlge with height 0 and width 0 has an area of 0","[area]"){
+  Point p1 = {.x=0,.y=0};
+  Point p2 = {.x=0,.y=0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.CalculateArea() == 0);
 }
 
 //Expand
