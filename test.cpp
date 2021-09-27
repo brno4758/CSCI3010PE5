@@ -38,7 +38,7 @@ TEST_CASE( "Rectangle width of 0", "[width]"){
   Point p1 = {.x=0,.y=0};
   Point p2 = {.x=0, .y=0};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth == 0);
+  REQUIRE(newRectangle.GetWidth() == 0);
 }
 
 //Height
