@@ -58,10 +58,10 @@ TEST_CASE( "Shrink rectangle with initial points p1=(0,0) and p2=(3,3) to rectan
   Rectangle newRectangle = Rectangle(p1,p2);
   newRectangle.Expand();
 
-  ASSERT(newRectangle.get_p1().x == 1);
-  ASSERT(newRectangle.get_p1().y == 1);
-  ASSERT(newRectangle.get_p2().x == 2);
-  ASSERT(newRectangle.get_p2().y == 2);
+  assert(newRectangle.get_p1().x == 1);
+  assert(newRectangle.get_p1().y == 1);
+  assert(newRectangle.get_p2().x == 2);
+  assert(newRectangle.get_p2().y == 2);
  }
 
 
