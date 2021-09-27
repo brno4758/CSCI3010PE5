@@ -21,6 +21,43 @@ TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[recta
 //   Rectangle newRectangle = Rectangle(p1,p2);
 // }
 
+//Overlaps
+TEST_CASE( "Two rectangles with the same p1 overlap"){
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 3, .y = 3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  p2.x = 4;
+  p2.y = 4;
+  Rectangle newRectangle2 = Rectangle(p1,p2);
+  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+}
+TEST_CASE( "Two rectangles with the same p2 overlap"){
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 3, .y = 3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  p1.x = 1;
+  p1.y = 1;
+  Rectangle newRectangle2 = Rectangle(p1,p2);
+  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+}
+TEST_CASE( "Two rectangles with the same p1 and p2 overlap"){
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 3, .y = 3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  Rectangle newRectangle2 = Rectangle(p1,p2);
+  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
+}
+TEST_CASE( "Two rectangles with neither same p1 nor p2 dont overlap"){
+  Point p1 = {.x = 0, .y = 0};
+  Point p2 = {.x = 3, .y = 3};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  p1.x = 1;
+  p1.y = 1;
+  p2.x = 4;
+  p2.y = 4;
+  Rectangle newRectangle2 = Rectangle(p1,p2);
+  REQUIRE(newRectangle.Overlaps(newRectangle2) == false);
+}
 //Width
 TEST_CASE( "Rectangle width of 2", "[width]"){
   Point p1 = {.x = 0, .y = 0};
@@ -103,6 +140,6 @@ TEST_CASE( "Shrink rectangle with initial points p1=(0,2) and p2=(5,4) to rectan
   CHECK(newRectangle.get_p1().y == 3);
   CHECK(newRectangle.get_p2().x == 4);
   CHECK(newRectangle.get_p2().y == 3);
- }
+}
 
 
