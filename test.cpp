@@ -56,7 +56,7 @@ TEST_CASE( "Shrink rectangle with initial points p1=(0,0) and p2=(3,3) to rectan
   Point p1 = {.x=0,.y=0};
   Point p2 = {.x=3,.y=3};
   Rectangle newRectangle = Rectangle(p1,p2);
-  newRectangle.Expand();
+  newRectangle.Shrink();
 
   CHECK(newRectangle.get_p1().x == 1);
   CHECK(newRectangle.get_p1().y == 1);
