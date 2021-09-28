@@ -32,7 +32,7 @@ TEST_CASE ( "Rectanlge points are constructed as p1=(1,1) and p2=(0,0), invalid 
   REQUIRE(newRectangle.get_p1().x == p1.x);
   REQUIRE(newRectangle.get_p1().y == p1.y);
   REQUIRE(newRectangle.get_p2().x == p2.x);
-  REQUIRE(newRectangle.get_p2().y == p1.y);
+  REQUIRE(newRectangle.get_p2().y == p2.y);
 }
 
 //Overlaps
