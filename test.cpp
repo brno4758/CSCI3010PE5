@@ -23,12 +23,15 @@ TEST_CASE ( "Modifying point after initalizing Rectangle shouldnt affect Rectang
   REQUIRE(newRectangle.get_p1().x != 1);
   REQUIRE(newRectangle.get_p1().y != 1);
 }
+
 //Invalid rectangle
-// TEST_CASE ( "Rectanlge points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
-//   Point p1 = {.x = 1, .y = 1};
-//   Point p2 = {.x = 0, .y = 0};
-//   Rectangle newRectangle = Rectangle(p1,p2);
-// }
+TEST_CASE ( "Rectanlge points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
+  Point p1 = {.x = 1, .y = 1};
+  Point p2 = {.x = 0, .y = 0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.get_p1() == p1);
+  REQUIRE(newRectangle.get_p2() == p2);
+}
 
 //Overlaps
 TEST_CASE( "One rectangle overlaps itself"){
@@ -36,7 +39,7 @@ TEST_CASE( "One rectangle overlaps itself"){
   Point p2 = {.x = 3, .y = 3};
   Rectangle newRectangle = Rectangle(p1,p2);
   REQUIRE(newRectangle.Overlaps(newRectangle) == true);
-  }
+}
 TEST_CASE( "Two rectangles with the same p1 but different p2 overlap"){
   Point p1 = {.x = 0, .y = 0};
   Point p2 = {.x = 3, .y = 3};
@@ -77,6 +80,7 @@ TEST_CASE( "Two rectangles with neither same p1 nor p2 dont overlap"){
   REQUIRE(newRectangle.Overlaps(newRectangle2) == false);
   REQUIRE(newRectangle2.Overlaps(newRectangle) == false);
 }
+
 //Width
 TEST_CASE( "Rectangle width of 2", "[width]"){
   Point p1 = {.x = 0, .y = 0};
