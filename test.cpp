@@ -25,6 +25,7 @@ TEST_CASE ( "Rectangle points are constructed as p1=(1,1) and p2=(0,0), invalid 
   SECTION("Shrink on invalid triangle expands triangle"){
     newRectangle.Shrink();
     CHECK(newRectangle.CalculateArea() == 25);
+  }
   SECTION("Expand on invalid triangle shrinks triangle"){
     newRectangle.Expand();
     CHECK(newRectangle.CalculateArea() == 1);
