@@ -4,14 +4,10 @@
 #include "Rectangle.h"
 
 //Invalid rectangle
-TEST_CASE ( "Rectangle points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
+TEST_CASE ( "Invalid rectangle, p1 (3,3) is upper right p2 (0,0) is lower left", "[invalid]"){
   Point p1 = {.x = 3, .y = 3};
   Point p2 = {.x = 0, .y = 0};
   Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.get_p1().x == p1.x);
-  REQUIRE(newRectangle.get_p1().y == p1.y);
-  REQUIRE(newRectangle.get_p2().x == p2.x);
-  REQUIRE(newRectangle.get_p2().y == p2.y);
 
   SECTION("Width on invalid triangle gives positive width"){
     CHECK(newRectangle.GetWidth() == 3);
@@ -33,160 +29,79 @@ TEST_CASE ( "Rectangle points are constructed as p1=(1,1) and p2=(0,0), invalid 
 }
 
 
+//Valid triangle
+TEST_CASE("Valid rectangle, p1 (0,0) is lower left p2 (3,3) is upper right", "[valid]")
+{
+    Point p1 = {.x = 0, .y = 0};
+    Point p2 = {.x = 3, .y = 3};
+    Rectangle newRectangle = Rectangle(p1,p2);
+    SECTION("One rectangle overlaps itself")
+    {
+        CHECK(newRectangle.Overlaps(newRectangle) == true);
+    }
+    SECTION("Two rectangles with same p1 but different p2 overlap")
+    {
+        p2.x = 4;
+        p2.y = 4;
+        Rectangle newRectangle2 = Rectangle(p1,p2);
+        CHECK(newRectangle.Overlaps(newRectangle2) == true);
+        CHECK(newRectangle2.Overlaps(newRectangle) == true);
+    }
+    SECTION("Two rectangles with different p1 but same p2 overlap")
+    {
+        p1.x = 1;
+        p1.y = 1;
+        Rectangle newRectangle2 = Rectangle(p1,p2);
+        CHECK(newRectangle.Overlaps(newRectangle2) == true);
+        CHECK(newRectangle2.Overlaps(newRectangle) == true);
+    }
+    SECTION("Two rectangles with different p1 but same p2 overlap")
+    {
+        Rectangle newRectangle2 = Rectangle(p1,p2);
+        CHECK(newRectangle.Overlaps(newRectangle2) == true);
+        CHECK(newRectangle2.Overlaps(newRectangle) == true);
+    }
+    SECTION("Two rectangles with neither same p1 nor p2 overlap"){
+        p1.x = 1;
+        p1.y = 1;
+        p2.x = 4;
+        p2.y = 4;
+        Rectangle newRectangle2 = Rectangle(p1,p2);
+        CHECK(newRectangle.Overlaps(newRectangle2) == false);
+        CHECK(newRectangle2.Overlaps(newRectangle) == false);
+    }
+    //Width
+    SECTION( "Rectangle has width of 3", "[width]"){
+        CHECK(newRectangle.GetWidth() == 3);
+    }
 
+    //Height
+    SECTION( "Rectangle height of 3", "[height]"){
+        CHECK(newRectangle.GetHeight() == 3);
+    }
 
-//Constructors
-TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[rectangle]") {
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 1, .y = 1};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.get_p1().x == 0);
-  REQUIRE(newRectangle.get_p1().y == 0);
-  REQUIRE(newRectangle.get_p2().x == 1);
-  REQUIRE(newRectangle.get_p2().y == 1);
-}
+    //Area
+    SECTION( "Rectangle has an area of 9", "[area]"){
+        CHECK(newRectangle.CalculateArea() == 9);
+    }
 
-TEST_CASE ( "Modifying point after initalizing Rectangle shouldnt affect Rectangle", "[rectangle]") {
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 1, .y = 1};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  p1.x = 1;
-  p1.y = 1;
-  REQUIRE(newRectangle.get_p1().x != 1);
-  REQUIRE(newRectangle.get_p1().y != 1);
-}
+    //Expand
+    SECTION( "Expand rectangle to p1 (-1,-1)  and p2 (4,4)"){
+        newRectangle.Expand();
+        CHECK(newRectangle.get_p1().x == -1);
+        CHECK(newRectangle.get_p1().y == -1);
+        CHECK(newRectangle.get_p2().x == 4);
+        CHECK(newRectangle.get_p2().y == 4);
+    }
 
-
-//Overlaps
-TEST_CASE( "One rectangle overlaps itself"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 3, .y = 3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.Overlaps(newRectangle) == true);
-}
-TEST_CASE( "Two rectangles with the same p1 but different p2 overlap"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 3, .y = 3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  p2.x = 4;
-  p2.y = 4;
-  Rectangle newRectangle2 = Rectangle(p1,p2);
-  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
-  REQUIRE(newRectangle2.Overlaps(newRectangle) == true);
-}
-TEST_CASE( "Two rectangles with the same p2 overlap"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 3, .y = 3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  p1.x = 1;
-  p1.y = 1;
-  Rectangle newRectangle2 = Rectangle(p1,p2);
-  CHECK(newRectangle.Overlaps(newRectangle2) == true);
-  CHECK(newRectangle2.Overlaps(newRectangle) == true);
-}
-TEST_CASE( "Two rectangles with the same p1 and p2 overlap"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 3, .y = 3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  Rectangle newRectangle2 = Rectangle(p1,p2);
-  REQUIRE(newRectangle.Overlaps(newRectangle2) == true);
-  REQUIRE(newRectangle2.Overlaps(newRectangle) == true);
-}
-TEST_CASE( "Two rectangles with neither same p1 nor p2 dont overlap"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 3, .y = 3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  p1.x = 1;
-  p1.y = 1;
-  p2.x = 4;
-  p2.y = 4;
-  Rectangle newRectangle2 = Rectangle(p1,p2);
-  REQUIRE(newRectangle.Overlaps(newRectangle2) == false);
-  REQUIRE(newRectangle2.Overlaps(newRectangle) == false);
-}
-
-//Width
-TEST_CASE( "Rectangle width of 2", "[width]"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 2,.y = 2};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth() == 2);
-}
-TEST_CASE( "Rectangle width of 10", "[width]"){
-  Point p1 = {.x = -5,.y = 0};
-  Point p2 = {.x = 5,.y = 0};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth() == 10);
-}
-TEST_CASE( "Rectangle width of 0", "[width]"){
-  Point p1 = {.x=0,.y=0};
-  Point p2 = {.x=0, .y=0};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetWidth() == 0);
-}
-
-//Height
-TEST_CASE( "Rectangle height of 2", "[height]"){
-  Point p1 = {.x = 0, .y = 0};
-  Point p2 = {.x = 2,.y = 2};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetHeight() == 2);
-}
-TEST_CASE( "Rectangle height of 4", "[height]"){
-  Point p1 = {.x = 0, .y = -2};
-  Point p2 = {.x = 2,.y = 2};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetHeight() == 4);
-}
-TEST_CASE( "Rectangle height of 0", "[height]"){
-  Point p1 = {.x=0,.y=0};
-  Point p2 = {.x=0, .y=0};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.GetHeight() == 0);
-}
-
-//Area
-TEST_CASE( "Rectangle of height 3 and width 2 has an area of 6", "[area]"){
-  Point p1 = {.x=0,.y=0};
-  Point p2 = {.x=2,.y=3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.CalculateArea() == 6);
-}
-TEST_CASE( "Rectangle of height 4 and width 3 has an area of 12 (negative x and y)", "[area]"){
-  Point p1 = {.x=-1,.y=-1};
-  Point p2 = {.x=2,.y=3};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.CalculateArea() == 12);
-}
-TEST_CASE( "Area of a rectanlge with height 0 and width 0 has an area of 0","[area]"){
-  Point p1 = {.x=0,.y=0};
-  Point p2 = {.x=0,.y=0};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.CalculateArea() == 0);
-}
-
-//Expand
-TEST_CASE( "Expand rectangle with initial points p1=(1,2) and p2=(3,4) to rectangle with points p1=(0,1) and p2=(4,5)"){
-  Point p1 = {.x=1,.y=2};
-  Point p2 = {.x=3,.y=4};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  newRectangle.Expand();
-  REQUIRE(newRectangle.get_p1().x == 0);
-  REQUIRE(newRectangle.get_p1().y == 1);
-  REQUIRE(newRectangle.get_p2().x == 4);
-  REQUIRE(newRectangle.get_p2().y == 5);
-}
-
-//Shrink
-TEST_CASE( "Shrink rectangle with initial points p1=(0,2) and p2=(5,4) to rectangle with points p1=(1,3) and p2=(4,3)"){
-  Point p1 = {.x=0,.y=2};
-  Point p2 = {.x=5,.y=4};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  newRectangle.Shrink();
-  CHECK(newRectangle.get_p1().x == 1);
-  CHECK(newRectangle.get_p1().y == 3);
-  CHECK(newRectangle.get_p2().x == 4);
-  CHECK(newRectangle.get_p2().y == 3);
+    //Shrink
+    SECTION( "Shrink rectangle to p1 (1,1) and p2 (2,2)"){
+        newRectangle.Shrink();
+        CHECK(newRectangle.get_p1().x == 1);
+        CHECK(newRectangle.get_p1().y == 1);
+        CHECK(newRectangle.get_p2().x == 2);
+        CHECK(newRectangle.get_p2().y == 2);
+    }
 }
 
 

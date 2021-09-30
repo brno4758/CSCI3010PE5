@@ -1,6 +1,11 @@
 #include <iostream>
 #include "Rectangle.h"
 
+//BUGS IN ORIGINAL:
+//Something is wrong with the overlap funciton
+//
+
+
 Rectangle::Rectangle(Point p1, Point p2):p1_(p1),p2_(p2) {}
 
 
@@ -35,6 +40,11 @@ void Rectangle::Expand()
 
 void Rectangle::Shrink()
 {
+    if(p1_.x==p2_.x || p1_.y==p2_.y)
+    {
+        std::cout << "Cannot shrink further\n";
+        return;
+    }
     p1_.x += 1;
     p1_.y += 1;
     p2_.x -= 1;
