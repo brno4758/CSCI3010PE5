@@ -3,6 +3,37 @@
 
 #include "Rectangle.h"
 
+//Invalid rectangle
+TEST_CASE ( "Rectangle points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
+  Point p1 = {.x = 3, .y = 3};
+  Point p2 = {.x = 0, .y = 0};
+  Rectangle newRectangle = Rectangle(p1,p2);
+  REQUIRE(newRectangle.get_p1().x == p1.x);
+  REQUIRE(newRectangle.get_p1().y == p1.y);
+  REQUIRE(newRectangle.get_p2().x == p2.x);
+  REQUIRE(newRectangle.get_p2().y == p2.y);
+
+  SECTION("Width on invalid triangle gives positive width"){
+    CHECK(newRectangle.GetWidth() == 3);
+  }
+  SECTION("Height on invalid triangle gives positive height"){
+    CHECK(newRectangle.GetHeight() == 3);
+  }
+  SECTION("Area of invalid triangle gives positive area"){
+    CHECK(newRectangle.CalculateArea() == 9);
+  }
+  SECTION("Shrink on invalid triangle expands triangle"){
+    newRectangle.Shrink();
+    CHECK(newRectangle.CalculateArea() == 25);
+  SECTION("Expand on invalid triangle shrinks triangle"){
+    newRectangle.Expand();
+    CHECK(newRectangle.CalculateArea() == 1);
+  }
+}
+
+
+
+
 //Constructors
 TEST_CASE ( "Rectangle points are constructed as p1=(0,0) and p2=(1,1)", "[rectangle]") {
   Point p1 = {.x = 0, .y = 0};
@@ -24,16 +55,6 @@ TEST_CASE ( "Modifying point after initalizing Rectangle shouldnt affect Rectang
   REQUIRE(newRectangle.get_p1().y != 1);
 }
 
-//Invalid rectangle
-TEST_CASE ( "Rectanlge points are constructed as p1=(1,1) and p2=(0,0), invalid rectangle","[rectangleinvalid]"){
-  Point p1 = {.x = 1, .y = 1};
-  Point p2 = {.x = 0, .y = 0};
-  Rectangle newRectangle = Rectangle(p1,p2);
-  REQUIRE(newRectangle.get_p1().x == p1.x);
-  REQUIRE(newRectangle.get_p1().y == p1.y);
-  REQUIRE(newRectangle.get_p2().x == p2.x);
-  REQUIRE(newRectangle.get_p2().y == p2.y);
-}
 
 //Overlaps
 TEST_CASE( "One rectangle overlaps itself"){
