@@ -9,6 +9,11 @@ TEST_CASE ( "Invalid rectangle, p1 (3,3) is upper right p2 (0,0) is lower left",
   Point p2 = {.x = 0, .y = 0};
   Rectangle newRectangle = Rectangle(p1,p2);
 
+  SECTION( "Points are corrected to p1-lower left and p2-upper right")
+  {
+    CHECK(newRectangle.get_p1().x <= newRectangle.get_p2().x);
+    CHECK(newRectangle.get_p1().y <= newRectangle.get_p2().y);
+  }
   SECTION("Width on invalid triangle gives positive width"){
     CHECK(newRectangle.GetWidth() == 3);
   }
@@ -18,13 +23,13 @@ TEST_CASE ( "Invalid rectangle, p1 (3,3) is upper right p2 (0,0) is lower left",
   SECTION("Area of invalid triangle gives positive area"){
     CHECK(newRectangle.CalculateArea() == 9);
   }
-  SECTION("Shrink on invalid triangle expands triangle"){
+  SECTION("Shrink on invalid triangle shrinks triangle"){
     newRectangle.Shrink();
-    CHECK(newRectangle.CalculateArea() == 25);
-  }
-  SECTION("Expand on invalid triangle shrinks triangle"){
-    newRectangle.Expand();
     CHECK(newRectangle.CalculateArea() == 1);
+  }
+  SECTION("Expand on invalid triangle expands triangle"){
+    newRectangle.Expand();
+    CHECK(newRectangle.CalculateArea() == 25);
   }
 }
 
