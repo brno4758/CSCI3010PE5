@@ -35,10 +35,9 @@ int Rectangle::GetHeight()
 {
     return abs(p2_.y - p1_.y);
 }
-
+// This is the last one
 bool Rectangle::Overlaps(Rectangle& other)
 {
-    return (p1_ == other.p1_ || p2_ == other.p2_);
 }
 
 int Rectangle::CalculateArea()
